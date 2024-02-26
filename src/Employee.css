@@ -1,0 +1,97 @@
+.employee-container {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    background-color: #041428;
+    color: #ffffff;
+  }
+  
+  .filter-options {
+    margin-bottom: 20px;
+  }
+  
+  .filter-item {
+    margin-right: 20px;
+  }
+  
+  .filter-item label {
+    margin-right: 5px;
+  }
+  
+  .filter-item input {
+    padding: 5px;
+    border-radius: 3px;
+    border: none;
+  }
+  
+  button {
+    padding: 8px 12px;
+    background-color: #0085a1;
+    color: #ffffff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #005b71;
+  }
+  
+  .sort-options {
+    margin-bottom: 20px;
+  }
+  
+  .sort-options label {
+    margin-right: 5px;
+  }
+  
+  .sort-options select {
+    padding: 5px;
+    border-radius: 3px;
+    border: none;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+  
+  table th,
+  table td {
+    padding: 10px;
+    border-bottom: 1px solid #ffffff;
+    text-align: left;
+  }
+  
+  table th {
+    background-color: #0085a1;
+  }
+  
+  table tbody tr:nth-child(even) {
+    background-color: #0c3440;
+  }
+  
+  table tbody tr:hover {
+    background-color: #155367;
+  }
+  
+  .twinkling {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 1px, transparent 1px), radial-gradient(circle, rgba(255, 255, 255, 0.3) 1px, transparent 1px);
+    background-position: 0 0, 20px 20px;
+    background-size: 40px 40px;
+    z-index: 1;
+    animation: twinkling 5s linear infinite;
+  }
+  
+  @keyframes twinkling {
+    from {
+      background-position: 0 0, 20px 20px;
+    }
+    to {
+      background-position: -40px -40px, 20px 20px;
+    }
+  }
+  
