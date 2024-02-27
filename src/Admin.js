@@ -14,6 +14,7 @@ const Admin = () => {
         address: '',
         salary: '',
         designation: '',
+        description: '',
     });
     const [errors, setErrors] = useState({});
 
@@ -30,17 +31,7 @@ const Admin = () => {
         const errors = validateForm();
         if (Object.keys(errors).length === 0) {
             try {
-                const response = await fetch('http://localhost:5000/submit-form', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(employeeData),
-                });
-                if (!response.ok) {
-                    throw new Error('Failed to add employee');
-                }
-                console.log('Employee added successfully');
+                console.log('Form submitted successfully');
                 setEmployeeData({
                     name: '',
                     employeeId: '',
@@ -52,10 +43,11 @@ const Admin = () => {
                     address: '',
                     salary: '',
                     designation: '',
+                    description: '',
                 });
                 setErrors({});
             } catch (error) {
-                console.error('Error adding employee:', error.message);
+                console.error('Error submitting form:', error.message);
             }
         } else {
             setErrors(errors);
@@ -65,58 +57,59 @@ const Admin = () => {
     const validateForm = () => {
         const errors = {};
         if (!employeeData.name) {
-          errors.name = 'Name is required';
+            errors.name = 'Name is required';
         }
         if (!employeeData.employeeId) {
-          errors.employeeId = 'Employee ID is required';
+            errors.employeeId = 'Employee ID is required';
         }
         if (!employeeData.dept) {
-          errors.dept = 'Department is required';
+            errors.dept = 'Department is required';
         }
         if (!employeeData.gender) {
-          errors.gender = 'Gender is required';
+            errors.gender = 'Gender is required';
         }
         if (!employeeData.dob) {
-          errors.dob = 'Date of Birth is required';
+            errors.dob = 'Date of Birth is required';
         } else {
-          const dobDate = new Date(employeeData.dob);
-          const today = new Date();
-          const age = today.getFullYear() - dobDate.getFullYear();
-          if (age < 21) {
-            errors.dob = 'Employee must be at least 21 years old';
-          }
+            const dobDate = new Date(employeeData.dob);
+            const today = new Date();
+            const age = today.getFullYear() - dobDate.getFullYear();
+            if (age < 21) {
+                errors.dob = 'Employee must be at least 21 years old';
+            }
         }
         if (!employeeData.email) {
-          errors.email = 'Email is required';
+            errors.email = 'Email is required';
         } else if (!isValidEmail(employeeData.email)) {
-          errors.email = 'Invalid email format';
+            errors.email = 'Invalid email format';
         }
         if (!employeeData.bloodGroup) {
-          errors.bloodGroup = 'Blood Group is required';
+            errors.bloodGroup = 'Blood Group is required';
         } else if (!isValidBloodGroup(employeeData.bloodGroup)) {
-          errors.bloodGroup = 'Invalid blood group. Please enter a valid blood group.';
+            errors.bloodGroup = 'Invalid blood group. Please enter a valid blood group.';
         }
         if (!employeeData.address) {
-          errors.address = 'Address is required';
+            errors.address = 'Address is required';
         }
         if (!employeeData.salary) {
-          errors.salary = 'Salary is required';
+            errors.salary = 'Salary is required';
         } else if (employeeData.salary <= 100000) {
-          errors.salary = 'Salary must be greater than 1 lakh';
+            errors.salary = 'Salary must be greater than 1 lakh';
         }
         if (!employeeData.designation) {
-          errors.designation = 'Designation is required';
+            errors.designation = 'Designation is required';
         }
         return errors;
     };
+
     const isValidEmail = (email) => {
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      return emailRegex.test(email);
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
     };
-  
+
     const isValidBloodGroup = (bloodGroup) => {
-      const validBloodGroups = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'];
-      return validBloodGroups.includes(bloodGroup.toUpperCase());
+        const validBloodGroups = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'];
+        return validBloodGroups.includes(bloodGroup.toUpperCase());
     };
 
     return (
@@ -230,7 +223,22 @@ const Admin = () => {
                 />
                 {errors.designation && <span className="error">{errors.designation}</span>}
             </div>
-            <button type="submit" className="submit-button">Add Employee</button>
+
+
+
+
+
+            <div className="form-group">
+  <label>Description:</label>
+  <textarea
+    name="description"
+    value={employeeData.description}
+    onChange={handleChange}
+    className="description-input" // Add the description-input class here
+  />
+</div>
+
+            <button type="submit" className="submit-button">Submit </button>
             <Link to="/employeedetails" className="details-link">Employee Details</Link>
         </form>
     );

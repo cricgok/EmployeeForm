@@ -39,6 +39,18 @@ app.post('/submit-form', (req, res) => {
 });
 
 
+app.post('/query-employee', async (req, res) => {
+  const { query } = req.body;
+  try {
+    // Query the database to get employee details based on the user query
+    const employeeDetails = await db.queryEmployee(query);
+    res.json({ success: true, data: employeeDetails });
+  } catch (error) {
+    console.error('Error querying employee:', error);
+    res.status(500).json({ success: false, error: 'Internal Server Error' });
+  }
+});
+
 
 app.get('/employees', (req, res) => {
   const sql = 'SELECT * FROM employees';
