@@ -25,34 +25,46 @@ const Admin = () => {
             [name]: value,
         });
     };
+    
+    
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         const errors = validateForm();
         if (Object.keys(errors).length === 0) {
-            try {
-                console.log('Form submitted successfully');
-                setEmployeeData({
-                    name: '',
-                    employeeId: '',
-                    dept: '',
-                    gender: '',
-                    dob: '',
-                    email: '',
-                    bloodGroup: '',
-                    address: '',
-                    salary: '',
-                    designation: '',
-                    description: '',
-                });
-                setErrors({});
-            } catch (error) {
-                console.error('Error submitting form:', error.message);
+          try {
+            const response = await fetch('http://localhost:5000/submit-form', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(employeeData),
+            });
+            if (!response.ok) {
+              throw new Error('Failed to add employee');
             }
+            console.log('Employee added successfully');
+            // Reset form data and errors after successful submission
+            setEmployeeData({
+              name: '',
+              employeeId: '',
+              dept: '',
+              gender: '',
+              dob: '',
+              email: '',
+              bloodGroup: '',
+              address: '',
+              salary: '',
+              designation: '',
+            });
+            setErrors({});
+          } catch (error) {
+            console.error('Error adding employee:', error.message);
+          }
         } else {
-            setErrors(errors);
+          setErrors(errors);
         }
-    };
+      };
 
     const validateForm = () => {
         const errors = {};
