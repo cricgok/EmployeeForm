@@ -14,7 +14,7 @@ const db = mysql.createConnection({
   host: 'localhost',
   user: 'root',
   password: 'Gokul@123',
-  database: 'employee_management',
+  database: 'guhan',
 });
 
 db.connect((err) => {
@@ -27,7 +27,7 @@ db.connect((err) => {
 app.post('/submit-form', (req, res) => {
   const { name, employeeId, dept, gender, dob, email, bloodGroup, address, salary, designation } = req.body;
 
-  const sql = 'INSERT INTO employees (name, employeeId, dept, gender, dob, email, bloodGroup, address, salary, designation) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+  const sql = 'INSERT INTO eform (name, employeeId, dept, gender, dob, email, bloodGroup, address, salary, designation) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
   db.query(sql, [name, employeeId, dept, gender, dob, email, bloodGroup, address, salary, designation], (error, result) => {
       if (error) {
           console.error('Error adding employee:', error);
@@ -53,7 +53,7 @@ app.post('/query-employee', async (req, res) => {
 
 
 app.get('/employees', (req, res) => {
-  const sql = 'SELECT * FROM employees';
+  const sql = 'SELECT * FROM eform';
   db.query(sql, (err, result) => {
     if (err) {
       console.error('Error fetching employees:', err);
@@ -66,7 +66,7 @@ app.get('/employees', (req, res) => {
 
 app.delete('/employees/:id', (req, res) => {
   const { id } = req.params;
-  const sql = 'DELETE FROM employees WHERE id = ?';
+  const sql = 'DELETE FROM eform WHERE id = ?';
   db.query(sql, [id], (error, result) => {
     if (error) {
       console.error('Error deleting employee:', error);
